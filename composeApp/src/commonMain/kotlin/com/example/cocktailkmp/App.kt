@@ -55,6 +55,7 @@ fun App() {
             AnimatedVisibility(showContent) {
                 val greeting = remember { Greeting().greet() }
 
+
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -89,8 +90,7 @@ fun App() {
 
                         is ScreenState.Success -> {
                             Text("Happening")
-
-                            LazyColumn() {
+                            LazyColumn {
                                 items((state as ScreenState.Success).drinks) { drink ->
                                     Card() {
                                         Row() {
@@ -105,8 +105,10 @@ fun App() {
                                             }
 
                                         }
-//                                    }
                                     }
+//                            LazyColumn()
+
+
                                 }
                             }
                         }
@@ -116,3 +118,4 @@ fun App() {
         }
     }
 }
+

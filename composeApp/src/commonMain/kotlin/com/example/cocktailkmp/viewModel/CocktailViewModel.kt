@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.cocktailapi.model.CocktailResponse
 import com.example.cocktailapi.model.Drink
 import com.example.cocktailapi.remote.Network
 import com.example.cocktailapi.states.DrinksResult
@@ -30,6 +31,8 @@ class CocktailViewModel(private val repository : CocktailRepositoryImpl = Cockta
             _state.update {
                 ScreenState.Loading
             }
+            val response = repository.getCocktailsByName(name)
+            println("This is the ${response}")
             when (val response = repository.getCocktailsByName(name)) {
                 is DrinksResult.Success<*> -> {
                     _state.update {
