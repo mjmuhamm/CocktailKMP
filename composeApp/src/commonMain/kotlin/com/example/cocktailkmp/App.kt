@@ -28,6 +28,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -100,19 +101,13 @@ fun App() {
                             LazyColumn(modifier = Modifier.background(Color.White)) {
                                 items((state as ScreenState.Success).drinks) { drink ->
 
-                                        Row() {
 //
-                                            Column() {
-                                                Text("Drink: ${drink.strDrink}")
-                                                Spacer(Modifier.height(10.dp))
+                                            Column(Modifier.padding(start = 10.dp, top = 8.dp)) {
+                                                Text("Drink: ${drink.strDrink}", fontWeight = FontWeight.Bold)
+                                                Spacer(Modifier.height(5.dp))
                                                 Text("Instructions: ${drink.strInstructions}")
                                                 Spacer(Modifier.height(10.dp))
-
                                             }
-
-                                        }
-
-
                                 }
                             }
                         }
