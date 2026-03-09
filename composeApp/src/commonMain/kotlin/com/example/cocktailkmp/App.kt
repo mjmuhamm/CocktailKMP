@@ -5,14 +5,20 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -21,6 +27,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -46,7 +53,7 @@ fun App() {
         var text by remember { mutableStateOf("") }
         Column(
             modifier = Modifier
-                .background(MaterialTheme.colorScheme.primaryContainer)
+                .background(Color.White)
                 .safeContentPadding()
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -62,15 +69,16 @@ fun App() {
                 ) {
 
 
-                    Row(modifier = Modifier.fillMaxWidth()) {
+                    Row(modifier = Modifier.fillMaxWidth().padding(10.dp)) {
                         OutlinedTextField(
                             value = text,
                             onValueChange = { text = it },
-                            label = { Text("Enter drink...") }
+                            label = { Text("Enter drink...") },
+                            modifier = Modifier.width(200.dp)
 
                         )
 
-                        Button(onClick = { viewModel.fetchCocktails(text) }) {
+                        Button(onClick = { viewModel.fetchCocktails(text) }, shape = RoundedCornerShape(6.dp), modifier = Modifier.width(130.dp).padding(top = 7.dp, start = 16.dp)) {
                             Text("Search Cocktails")
                         }
 
@@ -81,32 +89,28 @@ fun App() {
                         }
 
                         ScreenState.Loading -> {
-                            Text("Loading")
+                            CircularProgressIndicator()
                         }
 
                         ScreenState.Nothing -> {
-                            Text("Nothing is Happening")
+
                         }
 
                         is ScreenState.Success -> {
-                            Text("Happening")
-                            LazyColumn {
+                            LazyColumn(modifier = Modifier.background(Color.White)) {
                                 items((state as ScreenState.Success).drinks) { drink ->
-                                    Card() {
+
                                         Row() {
-//                                            AsyncImage(
-//                                                model = drink.strDrinkThumb,
-//                                                contentDescription = "",
-//                                                modifier = Modifier.size(75.dp),
-//                                            )
+//
                                             Column() {
-                                                Text("Margarita${drink.strDrink}")
-                                                Text("Instructions${drink.strInstructions}")
+                                                Text("Drink: ${drink.strDrink}")
+                                                Spacer(Modifier.height(10.dp))
+                                                Text("Instructions: ${drink.strInstructions}")
+                                                Spacer(Modifier.height(10.dp))
+
                                             }
 
                                         }
-                                    }
-//                            LazyColumn()
 
 
                                 }
