@@ -50,7 +50,7 @@ fun App() {
         var showContent by remember { mutableStateOf(true) }
 
         val viewModel = viewModel<CocktailViewModel>(factory = cocktailModelFactory)
-        val state by viewModel.state.collectAsStateWithLifecycle()
+        val screenState by viewModel.state.collectAsStateWithLifecycle()
         var text by remember { mutableStateOf("") }
         Column(
             modifier = Modifier
@@ -84,7 +84,7 @@ fun App() {
                         }
 
                     }
-                    when (state) {
+                    when (val state = screenState) {
                         is ScreenState.Error -> {
                             Text("Error")
                         }
