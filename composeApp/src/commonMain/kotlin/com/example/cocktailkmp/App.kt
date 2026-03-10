@@ -99,11 +99,15 @@ fun App() {
 
                         is ScreenState.Success -> {
                             LazyColumn(modifier = Modifier.background(Color.White)) {
-                                items((state as ScreenState.Success).drinks) { drink ->
+                                items(state.drinks) { drink ->
 
 //
                                             Column(Modifier.padding(start = 10.dp, top = 8.dp)) {
-                                                Text("Drink: ${drink.strDrink}", fontWeight = FontWeight.Bold)
+                                                Row() {
+                                                    Text("Drink:")
+                                                    Text("${drink.strDrink}", fontWeight = FontWeight.Bold, modifier = Modifier.padding(start = 8.dp))
+                                                }
+
                                                 Spacer(Modifier.height(5.dp))
                                                 Text("Instructions: ${drink.strInstructions}")
                                                 Spacer(Modifier.height(10.dp))
